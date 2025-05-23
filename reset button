@@ -1,0 +1,36 @@
+using UnityEngine;
+
+namespace Valve.VR.InteractionSystem.Sample
+{
+    public class buton : MonoBehaviour
+    {
+        public ChemicalReaction chemicalReaction; 
+
+        public void OnButtonDown(Hand fromHand)
+        {
+            ColorSelf(Color.green);
+            if (chemicalReaction != null)
+            {
+                chemicalReaction.ResetReaction();
+            }
+            else
+            {
+                Debug.LogWarning("ChemicalReaction reference not assigned.");
+            }
+        }
+
+        public void OnButtonUp(Hand fromHand)
+        {
+            ColorSelf(Color.red);
+        }
+
+        private void ColorSelf(Color newColor)
+        {
+            Renderer[] renderers = GetComponentsInChildren<Renderer>();
+            foreach (Renderer renderer in renderers)
+            {
+                renderer.material.color = newColor;
+            }
+        }
+    }
+}
